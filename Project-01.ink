@@ -17,3 +17,87 @@
 
 */
 
+VAR time = -1 // 0 Dawn, 1 Morning, 2 Noon, 3 Sunset, 4 Night
+VAR walking_stick = 0
+
+-> trail
+
+== trail ==
+The dirt path continues for a while longer, light shines in the distance.
+* [Walk forwards] -> meadow1
+
+== meadow1 ==
+The trail opens up to the vast meadow. Tall grass sways through the breeze. The meadow continues north and east.
++ [Go North] -> meadow2
++ [Go East] -> meadow3
+
+== meadow2 ==
+The grass is shorter and more sparce, the meadow leads east and south, it also ends a bit further north.
++ [Go North] -> beach1
++ [Go East] -> meadow4
++ [Go South] -> meadow1
+
+== meadow3 ==
+The meadow looks much the same here. Some butterflies are flying around the taller plants. The meadow continues north and west from here.
++ [Go North] -> meadow4
++ [Go West] -> meadow1
+
+== meadow4 ==
+The meadow starts to give way to a forest eastwards, the grass is thick and is a bit restricting. The meadow continues to the west and south.
++ [Go East] -> forest1
++ [Go South] -> meadow3
++ [Go West] -> meadow2
+
+== beach1 ==
+The grass begins a gradient change to sand. In the distance a pond in a valley can be seen.
++ [Go North] -> beach2
++ [Go South] -> meadow2
+
+== beach2 ==
+You find yourself at the foot of a pond. Mountains stretch up high all around the water, creating a beautiful secluded alcove. {&The sunrise paints the sky in the prettiest pink|The sun peaks over some of the mountains casting rays of light on the pond|The sun beams down on the pond making it glisten with thousands of sparkles|The mountains are silhoetted against the deep orange sky|The stars and moon reflect off the pond elegantly}. {not stick:You can see a piece of driftwood has reached the shore.}
++ [Wait awhile] -> sit
+* [Take Stick] -> stick
++ [Go Back] -> beach1
+
+== sit ==
+You sit down and enjoy the view.
+-> beach2
+
+== stick ==
+~ walking_stick = walking_stick + 1
+You pick up the stick.
+-> beach2
+
+== forest1 ==
+The verdant forest has a trail in it that leads up and to the north.
++ [Go North] -> forest2
++ [Go West] -> meadow4
+
+== forest2 ==
+The trail splits as the forest grows thicker. The path to the north seems to go further into the forest and the path to the east leads steeply upwards, it may be hard to navigate without some help.
+* [Go North] -> forest3
+* {walking_stick > 0} [Go East] -> mountain
++ [Go South] -> forest1
+
+== forest3 ==
+The forest grows even thicker until it eventually gets too hard to navigate, nature has completely overtaken the path ahead.
+* [Go Back] -> forest2
+
+== mountain ==
+The trek upwards was rough but the driftwood you found helped make it manageable. The summit is close ahead. If you hurry {&you can see the sunrise|you can see the sun bathe rays across the world|you'll get to see the view as its brightest|you can watch the sun set|you'll be able to see the stars brighter than ever before|}.
+* [See the summit] -> summit
+
+== summit ==
+You reach the summit, the view is spectacular. {&You can see the sunrise|You can see the sun bathe rays across the world|You get to see the view as its brightest|You watch the sun set|The stars are shining brighter than ever before up here|}.
+-> END
+
+
+
+== function time_progression ==
+
+    ~ time = time + 1
+    
+    {
+        - time > 4:
+            ~ time = 0
+    }
