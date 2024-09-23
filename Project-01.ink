@@ -19,8 +19,18 @@
 
 VAR time = -1 // 0 Dawn, 1 Morning, 2 Noon, 3 Sunset, 4 Night
 VAR walking_stick = 0
+VAR preference = ""
 
--> trail
+-> choice
+
+== choice ==
+The question your friend asked you lingered in your mind for a moment. Were you more of a beach person or a mountain person?
+* [Beaches definitely]
+    ~ preference = "beaches"
+    -> trail
+* [Gotta be mountains]
+    ~ preference = "mountains"
+    -> trail
 
 == trail ==
 The dirt path continues for a while longer, light shines in the distance.
@@ -89,6 +99,8 @@ The trek upwards was rough but the driftwood you found helped make it manageable
 
 == summit ==
 You reach the summit, the view is spectacular. {&You can see the sunrise|You can see the sun bathe rays across the world|You get to see the view as its brightest|You watch the sun set|The stars are shining brighter than ever before up here|}.
+{ preference == "beaches": But the view from the pond was definitely a bit better after all.|}
+{ preference == "mountains": This knocked the pond view out of the park easily.|}
 -> END
 
 
